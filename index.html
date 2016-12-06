@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Wheel of Fortune</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script type="text/javascript" src="scripts/script.js"></script>
 </head>
@@ -9,9 +10,13 @@
 <!-- mystery word -->
 <div id="answer">Mystery Word Goes Here</div>
 
-<!-- rules -->
-<div id="rules">Rules Go Here: Welcome! Select a letter to reveal letters hidden in the mystery word. Successfully choosing a consonant will earn you $300. Vowels may be purchased for $250. When you are ready to solve the puzzle, enter your answer at the bottom of the page.</div>
+<!--Hint-->
+<div id="hint">Hint Goes Here</div>
 
+<!-- rules -->
+<div id="rules">Rules Go Here: Welcome! Select a letter to reveal letters hidden in the mystery word. Successfully choosing a consonant will earn you $300. Vowels may be purchased for $250. When you are ready to solve the puzzle, enter your answer at the bottom of the page. Click the wheel to get started!</div>
+
+<div><img src="images/wheel.png" class="placeholder" id="wheel"></div>
 <!-- scoreboard -->
 <div id="points">Your Current Score: $
 	<div id="score">2000</div>
@@ -56,8 +61,7 @@
 		<input type="submit" value="Submit" id="submit">
 	</form>
 </div>
-<!-- image -->
-<div><img src="images/wheel.png" class="placeholder"></div>
+
 <!-- interface: field to solve the puzzle
 bonus image vanna-->
 </body>
