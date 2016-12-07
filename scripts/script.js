@@ -31,13 +31,13 @@ function Game(){
 	//update board and answers
 	//maybe have answers in an array and then iterate through it???
 	var self = this;
-
 	var currentIndex = null;
 	this.answers = [];
 	var addHint = $('#addHint');
 	var addWord = $('#addWord');
 	var guess = $('#guess');
 
+	//this calls the answer object up above
 	this.addAnswer = function addAnswer(answer, hint){
 		if (!currentIndex) {
 			currentIndex = 0;
@@ -47,8 +47,7 @@ function Game(){
 	}// close addAnswer
 
 	this.addEventListeners = function addEventListeners(){
-		//event listeners - these will ultimtely run function to check for letter and add/deduct points
-	//letters
+		//select a letter to guess
 		$('#a').click( function() {guessLetter("A");});
 		$('#b').click( function() {guessLetter("B");});
 		$('#c').click( function() {guessLetter("C");});
@@ -76,30 +75,31 @@ function Game(){
 		$('#y').click( function() {guessLetter("Y");});
 		$('#z').click( function() {guessLetter("Z");});
 
-	//solve puzzle button - function that will look for match with answer and users input
-		$('#submit').click( function(e) {
-			e.preventDefault();
-			solvePuzzle();
+		//solve puzzle button - function that will look for match with answer and users input
+		$('#submit').click(function() {
+			self.solvePuzzle();
 		});
-		$('#addAnswer').click( function(){
+		//add new answers/hints
+		$('#addAnswer').click(function() {
 			self.addAnswer(addWord.val(), addHint.val());
 		});
 
-	//start a new game
-		$('#wheel').click( function() {newGame(round1.answer, round1.hint);});
+		//click wheel to start a new game
+		$('#wheel').click(function() {newGame(round1.answer, round1.hint);});
 
 	}; //close addEventListeners
 
 	//returns answer objact that is current answer/hint combo
-	this.getCurrentAnswer = function getCurrentAnswer(){
+	this.getCurrentAnswer = function getCurrentAnswer() {
 		return this.answers[currentIndex];
 	}
 
+	//solve the puzzle - expand with else statement
 	this.solvePuzzle = function solvePuzzle() {
-		if (solutionGuess.val().toUpperCase() === self.getCurrentAnswer().answer) {
+		if (guess.val().toUpperCase() === self.getCurrentAnswer().answer) {
 			alert("You Win!");
+			currentIndex++;
 		}
-		console.log(solutionGuess);
 	}
 	// document.getElementById('answer').innerText = "_ _ _ _";
 	// document.getElementById('hint').innerText = "Hint: " + currentHint;
@@ -107,7 +107,7 @@ function Game(){
 	// console.log(currentHint);
 
 
-//function update hiddenword
+	//function update hiddenword
 	//hide and display answer, update board's answers and blanks
 	// var answerBlanks = new Array(currentAnswer.length);
 	// console.log(answerBlanks);
@@ -118,40 +118,20 @@ function Game(){
 	// 	}
 	// 	console.log(answerBlanks);
 	// }//end hideAnswer
+
 	this.addEventListeners();
+
+	//function guessLetter
+	
+	//function buyVowel, compare guess to word, deduct points $250
 
 } //close newGame
 
-
-//this function will be called with event handler, letter will correspond to letterboard element
-function guessLetter(letter){
-	console.log("You guessed letter: " + letter);
-	//alter appearance of letter on letterboard
-	//iterate though answer array to find match
-	//if matches display letter on board
-
-}
-//function guessLetter, eventhandler will be attached to each letter in the letter bank, 
-//compare guess to word by iterating through word's array, award points based on # correct 
-// and display correct letters
-// guessLetter function(letter, ){
-// 	var testArray = 
-// }
-
 // Game instantiation
 game = new Game();
-
-//function buyVowel, compare guess to word, deduct points $250
-
-var solutionGuess = ""
-console.log(solutionGuess);
-
-
-
-//function solvePuzzle attached to input field that will compare input with array, 
-//all caps converts string to array
-
-
+game.addAnswer("PONG", "Early Arcade Game");
+game.addAnswer("JAVASCRIPT", "Dynamic Programming Language");
+game.addAnswer("LOVELACE", "Early Computer Programmer");
 
 //BONUS: function spinWheel - generate random point values, bankrupt
 
