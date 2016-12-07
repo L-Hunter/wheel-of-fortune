@@ -43,9 +43,12 @@ function Game(){
 	this.guessLetter = function guessLetter(letter) {
 		var currentAnswer = self.getCurrentAnswer();
 		for (var i = 0; i < currentAnswer.answerArray.length; i++) {
+			//change appearance of guessed letters
 			if (letter.toUpperCase() === currentAnswer.answerArray[i].toUpperCase()) {
 				//if keeping score, add here
 				currentAnswer.hiddenAnswer[i] = letter;
+			} else {
+				console.log("There is no " + letter + ". Guess Again!")
 			}	
 		}
 		//if statement to check if entire word is revealed
@@ -54,9 +57,21 @@ function Game(){
 	} //close guessLetter
 
 
+	//function to change letter appearance on click
+	this.updateSelectedLetters = function updateSelectedLetters(id) {
+		$(id).css("color", "#E0E0E0");
+		console.log(id);
+	}
+
 	this.addEventListeners = function addEventListeners(){
 		//select a letter to guess
-		$('#a').click( function() {self.guessLetter("A");});
+		// $('#a').click( function() {self.guessLetter("A");});
+		$('#a').click( function() {
+			self.guessLetter("A");
+			self.updateSelectedLetters('#a');
+			// $('#a').css('background-color', '#E0E0E0')
+		});
+// $('#elementToChange').css('background-color', '')
 		$('#b').click( function() {self.guessLetter("B");});
 		$('#c').click( function() {self.guessLetter("C");});
 		$('#d').click( function() {self.guessLetter("D");});
@@ -112,8 +127,11 @@ function Game(){
 	//solve the puzzle - expand with else statement
 	this.solvePuzzle = function solvePuzzle() {
 		if (guess.val().toUpperCase() === self.getCurrentAnswer().answer) {
-			alert("You Win!");
+			display.html(self.getCurrentAnswer().answerArray);
+			alert("Congratualtations, you win! Click the wheel to play again!");
 			currentIndex++;
+		} else {
+			alert("Incorrect!");
 		}
 	}
 
