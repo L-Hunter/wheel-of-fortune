@@ -116,27 +116,8 @@ function Game(){
 			currentIndex++;
 		}
 	}
-	// document.getElementById('display').innerText = "_ _ _ _";
-	// document.getElementById('hint').innerText = "Hint: " + currentHint;
-	// console.log(currentAnswer);
-	// console.log(currentHint);
-
-
-	//function update hiddenword
-	//hide and display answer, update board's answers and blanks
-	// var answerBlanks = new Array(currentAnswer.length);
-	// console.log(answerBlanks);
-	// //hide each letter in the answer with an _
-	// function hideAnswer(){
-	// 	for (var i = 0; i < answerBlanks.length; i++){
-	// 		answerBlanks[i] = "_ ";
-	// 	}
-	// 	console.log(answerBlanks);
-	// }//end hideAnswer
 
 	this.addEventListeners();
-	// this.displayMystery();
-	//function guessLetter
 	
 	//function buyVowel, compare guess to word, deduct points $250
 
