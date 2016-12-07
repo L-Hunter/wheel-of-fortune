@@ -9,7 +9,7 @@ function Answer(answer, hint){
 	this.hiddenAnswer = [];
 	//generate hidden answer unique to answer
 	for(var i = 0; i < this.answerArray.length; i++) {
-		this.hiddenAnswer.push("_");
+		this.hiddenAnswer.push("_ ");
 	}
 	this.showCompleted = function showCompleted() {
 		return this.hiddenAnswer.join('');
@@ -28,6 +28,8 @@ function Game(){
 	var addWord = $('#addWord');
 	var guess = $('#guess');
 	var display = $('#display');
+	var displayHint = $('#hint');
+
 	//this calls the answer object up above
 	this.addAnswer = function addAnswer(answer, hint){
 		if (!currentIndex) {
@@ -36,6 +38,7 @@ function Game(){
 		this.answers.push(new Answer(answer, hint));
 		console.log(this.answers);
 	}// close addAnswer
+
 
 	this.guessLetter = function guessLetter(letter) {
 		var currentAnswer = self.getCurrentAnswer();
@@ -90,13 +93,20 @@ function Game(){
 		});
 
 		//click wheel to start a new game
-		$('#wheel').click(function() {Game();});
-
+		$('#wheel').click(function() {
+			self.displayMystery();
+		});
 	} //close addEventListeners
 
 	//returns answer objact that is current answer/hint combo
 	this.getCurrentAnswer = function getCurrentAnswer() {
 		return this.answers[currentIndex];
+	}
+
+		//display hidden word at start of game
+	this.displayMystery = function displayMystery(){
+		display.html(self.getCurrentAnswer().hiddenAnswer);
+		displayHint.html(self.getCurrentAnswer().hint);
 	}
 
 	//solve the puzzle - expand with else statement
@@ -125,7 +135,7 @@ function Game(){
 	// }//end hideAnswer
 
 	this.addEventListeners();
-
+	// this.displayMystery();
 	//function guessLetter
 	
 	//function buyVowel, compare guess to word, deduct points $250
