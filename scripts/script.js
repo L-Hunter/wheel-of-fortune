@@ -1,42 +1,33 @@
 $(document).ready( function() {
 	
 
-//answer object - to create answers with hints
+//answer object - to create answer, hints, generate hidden answer for display
 function Answer(answer, hint){
 	this.answer = answer.toUpperCase();
 	this.answerArray = answer.split("");
-	this.hint = hint
-}
-
-//instances of answers
-// var round1 = new NewAnswer("PONG", "Early Arcade Game")
-// var round2 = new NewAnswer("JAVASCRIPT", "Dynamic Programming Language")
-// var round3 = new NewAnswer("LOVELACE", "Early Computer Programmer");
-
-// console.log("Round 1 " + round1.answer + round1.hint);
-// console.log("Round 2 " + round2.answer + round2.hint);
-// console.log("Round 3 " + round3.answer + round3.hint);
-
+	this.hint = hint;
+	this.hiddenAnswer = [];
+	//generate hidden answer unique to answer
+	for(var i = 0; i < this.answerArray.length; i++) {
+		this.hiddenAnswer.push("_");
+	}
+	this.showCompleted = function showCompleted() {
+		return this.hiddenAnswer.join('');
+	}
+} //close Answer
 
 
-
-//function to generate round: words with hint
-// function round(word, hint){
-// 	this.wordArray = word
-// 	// for (var i = 0; i < word.length; i++) {
-// 	//   wordArray = wordArray + (word[i]);
-// 	this.hint = hint;
-// }
 function Game(){
 	//update board and answers
-	//maybe have answers in an array and then iterate through it???
 	var self = this;
+
 	var currentIndex = null;
 	this.answers = [];
+
 	var addHint = $('#addHint');
 	var addWord = $('#addWord');
 	var guess = $('#guess');
-
+	var display = $('#display');
 	//this calls the answer object up above
 	this.addAnswer = function addAnswer(answer, hint){
 		if (!currentIndex) {
@@ -46,34 +37,48 @@ function Game(){
 		console.log(this.answers);
 	}// close addAnswer
 
+	this.guessLetter = function guessLetter(letter) {
+		var currentAnswer = self.getCurrentAnswer();
+		for (var i = 0; i < currentAnswer.answerArray.length; i++) {
+			if (letter.toUpperCase() === currentAnswer.answerArray[i].toUpperCase()) {
+				//if keeping score, add here
+				currentAnswer.hiddenAnswer[i] = letter;
+			}	
+		}
+		//if statement to check if entire word is revealed
+		this.answers[currentIndex] = currentAnswer;
+		display.html(self.getCurrentAnswer().showCompleted());
+	} //close guessLetter
+
+
 	this.addEventListeners = function addEventListeners(){
 		//select a letter to guess
-		$('#a').click( function() {guessLetter("A");});
-		$('#b').click( function() {guessLetter("B");});
-		$('#c').click( function() {guessLetter("C");});
-		$('#d').click( function() {guessLetter("D");});
-		$('#e').click( function() {guessLetter("E");});
-		$('#f').click( function() {guessLetter("F");});
-		$('#g').click( function() {guessLetter("G");});
-		$('#h').click( function() {guessLetter("H");});
-		$('#i').click( function() {guessLetter("I");});
-		$('#j').click( function() {guessLetter("J");});
-		$('#k').click( function() {guessLetter("K");});
-		$('#l').click( function() {guessLetter("L");});
-		$('#m').click( function() {guessLetter("M");});
-		$('#n').click( function() {guessLetter("N");});
-		$('#o').click( function() {guessLetter("O");});
-		$('#p').click( function() {guessLetter("P");});
-		$('#q').click( function() {guessLetter("Q");});
-		$('#r').click( function() {guessLetter("R");});
-		$('#s').click( function() {guessLetter("S");});
-		$('#t').click( function() {guessLetter("T");});
-		$('#u').click( function() {guessLetter("U");});
-		$('#v').click( function() {guessLetter("V");});
-		$('#w').click( function() {guessLetter("W");});
-		$('#x').click( function() {guessLetter("X");});
-		$('#y').click( function() {guessLetter("Y");});
-		$('#z').click( function() {guessLetter("Z");});
+		$('#a').click( function() {self.guessLetter("A");});
+		$('#b').click( function() {self.guessLetter("B");});
+		$('#c').click( function() {self.guessLetter("C");});
+		$('#d').click( function() {self.guessLetter("D");});
+		$('#e').click( function() {self.guessLetter("E");});
+		$('#f').click( function() {self.guessLetter("F");});
+		$('#g').click( function() {self.guessLetter("G");});
+		$('#h').click( function() {self.guessLetter("H");});
+		$('#i').click( function() {self.guessLetter("I");});
+		$('#j').click( function() {self.guessLetter("J");});
+		$('#k').click( function() {self.guessLetter("K");});
+		$('#l').click( function() {self.guessLetter("L");});
+		$('#m').click( function() {self.guessLetter("M");});
+		$('#n').click( function() {self.guessLetter("N");});
+		$('#o').click( function() {self.guessLetter("O");});
+		$('#p').click( function() {self.guessLetter("P");});
+		$('#q').click( function() {self.guessLetter("Q");});
+		$('#r').click( function() {self.guessLetter("R");});
+		$('#s').click( function() {self.guessLetter("S");});
+		$('#t').click( function() {self.guessLetter("T");});
+		$('#u').click( function() {self.guessLetter("U");});
+		$('#v').click( function() {self.guessLetter("V");});
+		$('#w').click( function() {self.guessLetter("W");});
+		$('#x').click( function() {self.guessLetter("X");});
+		$('#y').click( function() {self.guessLetter("Y");});
+		$('#z').click( function() {self.guessLetter("Z");});
 
 		//solve puzzle button - function that will look for match with answer and users input
 		$('#submit').click(function() {
@@ -85,9 +90,9 @@ function Game(){
 		});
 
 		//click wheel to start a new game
-		$('#wheel').click(function() {newGame(round1.answer, round1.hint);});
+		$('#wheel').click(function() {Game();});
 
-	}; //close addEventListeners
+	} //close addEventListeners
 
 	//returns answer objact that is current answer/hint combo
 	this.getCurrentAnswer = function getCurrentAnswer() {
@@ -101,7 +106,7 @@ function Game(){
 			currentIndex++;
 		}
 	}
-	// document.getElementById('answer').innerText = "_ _ _ _";
+	// document.getElementById('display').innerText = "_ _ _ _";
 	// document.getElementById('hint').innerText = "Hint: " + currentHint;
 	// console.log(currentAnswer);
 	// console.log(currentHint);
