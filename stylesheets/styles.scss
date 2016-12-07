@@ -5,6 +5,7 @@ $minor-content-size: 16px;
 $puzzle-font-size: 44px;
 $hint-font-size: 28px;
 $top-bottom-pad: 12px 0px;
+$selected-color: #E0E0E0;
 
 body{
 	margin: 0;
@@ -89,4 +90,8 @@ body{
 	padding: 5px;
 	text-align: center;
 	font-size: 14px;
+}
+
+#selected{
+	color: $selected-color;
 }
