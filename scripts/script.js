@@ -1,4 +1,4 @@
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 $(document).ready( function() {
 
@@ -176,6 +176,7 @@ function Game(){
 		//add new answers/hints
 		$('#addAnswer').click(function() {
 			self.addAnswer(addWord.val(), addHint.val());
+			self.resetNewRounds();
 		});
 
 		//click wheel to start a new game
@@ -185,10 +186,16 @@ function Game(){
 		});
 	} //close addEventListeners
 
+	//reset solution answer box to empty
 	this.resetControls = function resetControls() {
 		guess.val('');
 	}
 
+	//reset adding new answer/hints to empty boxes
+	this.resetNewRounds = function resetNewRounds() {
+		addWord.val('');
+		addHint.val('');
+	}
 
 		//display hidden word at start of game
 	this.displayMystery = function displayMystery(){
